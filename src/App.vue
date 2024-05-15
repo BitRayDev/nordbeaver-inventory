@@ -80,12 +80,15 @@ const items = ref([]);
 onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const caseValue = urlParams.get('case');
-  fetch(`https://us-central1-seven-seven-bit-inhouse-helper.cloudfunctions.net/vueDevTestTask-getInventoryState?case=${caseValue}`)
-    .then(response => response.json())
-    .then(data => {
-      items.value = data.inventory;
-    })
-    .catch(e => console.error(e));
+
+  if (caseValue) {
+    fetch(`https://us-central1-seven-seven-bit-inhouse-helper.cloudfunctions.net/vueDevTestTask-getInventoryState?case=${caseValue}`)
+      .then(response => response.json())
+      .then(data => {
+        items.value = data.inventory;
+      })
+      .catch(e => console.error(e));
+  }
 })
 </script>
 
