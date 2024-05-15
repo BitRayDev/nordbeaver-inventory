@@ -3,6 +3,7 @@
     <InventoryItemGridSlot
       class="inventory-item-grid__slot"
       v-for="i in items.length < 40 ? 40 : Math.ceil(items.length / 5) * 5"
+      :key="items[i]?.id ?? i"
       :item="items[i]"
     />
   </div>
