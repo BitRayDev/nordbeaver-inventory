@@ -224,6 +224,10 @@ function formatMilliseconds(ms) {
     color: #fff;
 
     background-color: color-mix(in srgb, #1a1a1a, transparent 25%);
+
+    img {
+      width: 24rem;
+    }
   }
 }
 </style>
