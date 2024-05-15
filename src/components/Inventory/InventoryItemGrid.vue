@@ -2,20 +2,16 @@
   <div class="inventory-item-grid">
     <InventoryItemGridSlot
       class="inventory-item-grid__slot"
-      v-for="item in items"
-      :item="item"
-      :key="item.id"
-    />
-    <InventoryItemGridSlot
-      class="inventory-item-grid__slot"
-      v-for="i in (items.length < 40 ? 40 : Math.ceil(items.length / 5) * 5) - items.length"
-      :key="i"
+      v-for="(_, i) in items.length < 40 ? 40 : Math.ceil(items.length / 5) * 5"
+      :key="items[i]?.id ?? i"
+      :item="items[i]"
     />
   </div>
 </template>
 
 <script setup>
 import InventoryItemGridSlot from "@/components/Inventory/InventoryItemGridSlot.vue";
+import {watch} from "vue";
 
 const props = defineProps({
   items: {
@@ -24,6 +20,8 @@ const props = defineProps({
     required: true,
   }
 })
+
+watch(() => props.items, (value, oldValue, onCleanup) => console.log(value))
 </script>
 
 <style lang="scss">
