@@ -20,8 +20,6 @@ const props = defineProps({
     required: true,
   }
 })
-
-watch(() => props.items, (value, oldValue, onCleanup) => console.log(value))
 </script>
 
 <style lang="scss">
