@@ -1,5 +1,5 @@
 <template>
-  <Inventory :items="items"/>
+  <Inventory :items="items" :loading="itemsLoading"/>
 </template>
 
 <script setup>
@@ -76,18 +76,23 @@ const mockItems = [
 ]
 
 const items = ref([]);
+const itemsLoading = ref(false);
 
 onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const caseValue = urlParams.get('case');
 
   if (caseValue) {
+    itemsLoading.value = true;
     fetch(`https://us-central1-seven-seven-bit-inhouse-helper.cloudfunctions.net/vueDevTestTask-getInventoryState?case=${caseValue}`)
       .then(response => response.json())
       .then(data => {
         items.value = data.inventory;
       })
-      .catch(e => console.error(e));
+      .catch(e => console.error(e))
+      .finally(e => {
+        itemsLoading.value = false;
+      });
   }
 })
 </script>

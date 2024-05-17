@@ -17,6 +17,7 @@
           <InventoryItemGrid
             class="inventory__item-grid"
             :items="filteredItems"
+            :loading="loading"
           />
         </div>
       </div>
@@ -38,6 +39,11 @@ const props = defineProps({
     type: Array,
     default: () => [],
     required: true,
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+    required: false,
   }
 })
 
@@ -85,6 +91,8 @@ const filteredItems = computed(() => {
   &__items {
     display: flex;
     flex-direction: column;
+
+    position: relative;
 
     flex-grow: 1;
 
