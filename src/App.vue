@@ -86,8 +86,14 @@ onMounted(() => {
     itemsLoading.value = true;
     fetch(`https://us-central1-seven-seven-bit-inhouse-helper.cloudfunctions.net/vueDevTestTask-getInventoryState?case=${caseValue}`)
       .then(response => response.json())
+      .then(data => Promise.all(data.inventory.map(item => new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => { resolve(item); }
+        img.onerror = () => { reject(item) }
+        img.src = item.imageUrl;
+      }))))
       .then(data => {
-        items.value = data.inventory;
+        items.value = data;
       })
       .catch(e => console.error(e))
       .finally(e => {
